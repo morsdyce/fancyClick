@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 1</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/snap.svg-min.js"></script>
+</head>
+<body>
+<a href="page.html">Page click</a>
+<a href="page2.html">Page click</a>
+<a href="http://google.com">External click</a>
+
+<div id="main" class="main animate">
+    Page 1
+</div>
+
+<div id="loader" class="pageload-overlay" data-opening="M 40,100 150,0 -65,0 z">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none">
+        <path d="M 40,100 150,0 l 0,0 z"/>
+    </svg>
+</div><!-- /pageload-overlay -->
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/svgLoader.js"></script>
+<script src="../src/fancyclick.js"></script>
+<script>
+    (function() {
+        "use strict";
+
+        var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 400, easingIn : mina.easeinout } );
+
+        fancyClick.init({
+            onLoadStart: function() {
+                loader.show();
+            },
+            onLoadEnd: function() {
+                loader.hide();
+            }
+        });
+
+    }());
+</script>
+</body>
+</html>

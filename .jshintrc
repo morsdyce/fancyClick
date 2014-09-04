@@ -1,0 +1,23 @@
+{
+  "strict":false,
+  "bitwise":true,
+  "curly":true,
+  "eqeqeq":true,
+  "forin":true,
+  "newcap":true,
+  "noarg":true,
+  "noempty":true,
+  "nonew":true,
+  "unused":true,
+  "trailing":true,
+  "indent":4,
+  "quotmark":"single",
+  "globalstrict":false,
+  "browser":true,
+  "undef":false,
+  "globals": {
+    "$": false,
+    "jQuery": false,
+    "require": false
+  }
+}

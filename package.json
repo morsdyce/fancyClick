@@ -1,0 +1,29 @@
+{
+  "name": "fancyClick",
+  "version": "0.0.1",
+  "description": "A lightweight pjax library focused on animated transitions and seamless background loading",
+  "main": "dist/fancyClick.min.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "jquery": "^2.1.1"
+  },
+  "devDependencies": {
+    "karma": "^0.12.23",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-cli": "^0.0.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-jasmine-async": "^0.0.1",
+    "karma-jasmine-jquery": "^0.1.0"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start"
+  },
+  "keywords": [
+    "pjax",
+    "animation"
+  ],
+  "author": "Maayan Glikser",
+  "license": "MIT"
+}
