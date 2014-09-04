@@ -1,5 +1,5 @@
 
-## FancyClick ##
+## FancyClick (WIP) ##
 
 FancyClick is a lightweight pjax library focusing on animation transitions.
 
