@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/morsdyce/fancyClick.svg?branch=master)](https://travis-ci.org/morsdyce/fancyClick)
 
 ## FancyClick (WIP) ##
 
