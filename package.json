@@ -15,7 +15,8 @@
     "karma-cli": "^0.0.4",
     "karma-jasmine": "^0.1.5",
     "karma-jasmine-async": "^0.0.1",
-    "karma-jasmine-jquery": "^0.1.0"
+    "karma-jasmine-jquery": "^0.1.0",
+    "karma-phantomjs-launcher": "~0.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
