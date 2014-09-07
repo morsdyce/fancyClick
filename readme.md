@@ -9,7 +9,7 @@ If the browser lacks javascript support FancyClick degrades gracefully to full p
 
 ## How it works ##
 
-FancyClick processes all your internal links and replaces them with pjax requests which update the title and content dynamically without switching the page.
+FancyClick processes all your internal links and replaces them with pjax requests which update the title and content dynamically without refreshing the page.
 
 ## Basic Usage ##
 
@@ -26,24 +26,58 @@ FancyClick defaults to `#main` selector for content placeholder
 
 ## Options ##
 
- - container - specify a selector for your content main container. Defaults to `#main`
+###container###
+specify a selector for your content main container.
 
- - animationMethod - `(replace|transition)` sets the animation mode.
- `replace` replaces the content of the container.
- `transition` adds another container to the DOM for the animation duration and adds `fancy-enter` class to the entering container and `fancy-leave` to the leaving container.
+| Parameter | Default |
+| -------------- | ---------- |
+| container | #main |
 
- - loadStart - (callback) parameters: href, options - runs when loading a link starts
+###animationMethod###
+| Option | Description |
+| -------------- | ---------- | 
+| replace | Replaces the content of the container |
+| transition| adds another container to the DOM for animation duration and adds `fancy-enter` to the entering container and `fancy-leave` to the leaving container
 
- - preDOMInsert - (callback) parameters: element, parent - runs just before the new Dom is inserted to the page
+###animationDelay###
+| Option | Description |
+| -------------- | ---------- | 
+| number | An integer representing the minimum delay before showing the new content |
+| auto | Automatic calculation of CSS animations duration only, please specify a number while using JS animations.
 
- - postDOMInsert - (callback) parameters: element, parent - runs just after the new DOM is inserted to the page
 
- - loadEnd - (callback) parameters: href, options - runs when loading has ended
+###loadStart### 
+| Option | Description |
+| -------------- | ---------- | 
+| function ( href, options ) | Runs when loading starts |
 
- - blacklist - selectors which shouldn't trigger fancyClick.
 
- - whitelist - specify selectors that are only allowed to trigger fancyClick.
+###preDOMInsert### 
+| Option | Description |
+| -------------- | ---------- | 
+| function ( element, parent ) | Runs before attaching new DOM to the page |
 
- - preFetch - Prefetch links before clicking. defaults to false.
+###postDOMInsert###
+| Option | Description |
+| -------------- | ---------- | 
+| function ( element, parent ) | Runs after attaching new DOM to the page |
 
- - preFetchMode - `(hover|mousedown)` Set the strategy for prefetching links
+###loadEnd###
+| Option | Description |
+| -------------- | ---------- | 
+| function ( href, options ) | Runs when loading has ended |
+
+###blacklist###
+Specify selectors which shouldn't trigger FancyClick.
+
+###whitelist###
+Specify selectors that are only allowed to trigger fancyClick.
+
+###preFetch###
+Prefetch links before clicking. defaults to false.
+
+###preFetchMode###
+| Option | Description |
+| -------------- | ---------- | 
+| hover | Starts prefetching a link when hovering over a link |
+| mousedown | Starts prefetching a link on the mouse down event |
