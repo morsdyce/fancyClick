@@ -51,17 +51,6 @@ specify a selector for your content main container.
 | -------------- | ---------- | 
 | function ( href, options ) | Runs when loading starts |
 
-
-###preDOMInsert### 
-| Option | Description |
-| -------------- | ---------- | 
-| function ( element, parent ) | Runs before attaching new DOM to the page |
-
-###postDOMInsert###
-| Option | Description |
-| -------------- | ---------- | 
-| function ( element, parent ) | Runs after attaching new DOM to the page |
-
 ###loadEnd###
 | Option | Description |
 | -------------- | ---------- | 
