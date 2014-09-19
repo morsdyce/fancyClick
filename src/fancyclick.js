@@ -1,32 +1,22 @@
-;
 (function ($, window, document, undefined) {
 
     'use strict';
 
-    var defaults = {
-        container: 'main',
+    var settings = {
+        container: '.main',
         method: 'replace',
         duration: 1000,
         preload: false,
-        preloadAction: 'hover',
         anchors: 'a',
         blacklist: '.no-fancyclick',
         whitelist: '',
         onLoadStart: function () {
-            //$('body').addClass('fancy-enter');
+            //$('body').addClass('fancy-in-transition');
         },
         onLoadEnd: function () {
-            //$('body').addClass('fancy-leave');
+            //$('body').addClass('fancy-in-transition');
         }
     };
-
-    /**
-     * Get an option value
-     * @param optionName
-     */
-    function getOption(optionName) {
-        return defaults[optionName] || null;
-    }
 
     /**
      * Initilize plugin with specified options
@@ -35,24 +25,27 @@
     function init(opts) {
         // initialize config
         for (var key in opts) {
-            if (defaults.hasOwnProperty(key)) {
-                defaults[key] = opts[key];
+            if (settings.hasOwnProperty(key)) {
+                settings[key] = opts[key];
             }
         }
-        console.log('intialized with options', defaults);
 
         attachLoader();
-
         history.pushState({}, '', window.location.href);
+        $(window).on('popstate', stateChange);
+    }
 
-        $(window).on('popstate', function (e) {
-            if (e.originalEvent.state !== null) {
-                console.log(e);
-                loadPage(e, true);
-            } else {
-                loadPage(e);
-            }
-        });
+    /**
+     * Manage state changes, if a user navigates back or forward
+     * load the page from history
+     * @param e
+     */
+    function stateChange(e) {
+        if (e.originalEvent.state !== null) {
+            loadPage(e, true);
+        } else {
+            loadPage(e);
+        }
     }
 
     /**
@@ -77,23 +70,22 @@
         var links = $('a');
 
         $.each(links, function (key, element) {
-            var element = $(element);
-            if (!isExternal(element.attr('href'))) {
-                element.click(loadPage);
+            var $element = $(element);
+            if (!isExternal($element.attr('href'))) {
+                $element.click(loadPage);
             }
         });
-
-
     }
 
     function loadPage(e, changeBack) {
         e.preventDefault();
+        var duration = getAnimationDuration();
         var href = e.currentTarget.href || window.location.href;
-        var element = $('.' + defaults.container);
+        var element = $(settings.container);
         var parentElement = element.parent();
-        //var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 400, easingIn : mina.easeinout } );
 
-        defaults.onLoadStart();
+        // fire loading start callback
+        settings.onLoadStart();
 
         $.ajax({
             url: href,
@@ -103,42 +95,79 @@
                 var dom = $('<div>').append($.parseHTML(responseText));
                 updateTitle(dom.find('title').text());
 
-                if (defaults.method === 'replace') {
+                if (settings.method === 'replace') {
+                    var html = dom.find(settings.container).html();
+                    element.html(html);
                     setTimeout(function () {
-                        element.html(dom.find('.' + defaults.container).html());
-                        defaults.onLoadEnd();
-                    }, 2000);
+                        settings.onLoadEnd();
+                    }, duration);
 
                 } else {
                     element.addClass('fancy-leave');
-                    var afterElement = dom.find('.' + defaults.container);
+                    var afterElement = dom.find(settings.container);
                     parentElement.append(afterElement).addClass('fancy-enter');
                     setTimeout(function () {
                         element.remove();
                         afterElement.removeClass('fancy-enter');
-                        defaults.onLoadEnd();
-                    }, 2000);
+                        settings.onLoadEnd();
+                    }, duration);
                 }
 
-                console.log('changeback', changeBack, href);
+                // if this is the initial page loaded add it to the history
                 if (!changeBack) {
                     history.pushState({}, '', href);
                 }
             }
 
         }, function (error) {
-            defaults.onLoadEnd();
+            // fire the load end callback
+            settings.onLoadEnd();
+            // log the error
             console.error(error);
         });
     }
 
+    /**
+     * Update the title of the page
+     * @param title
+     */
     function updateTitle(title) {
         $('title').text(title);
     }
 
+    /**
+     * animation duration defaults to 1000
+     * if data-animation-duration is set
+     * or default animation duration is set to a custom value
+     *
+     * use the animation duration that was received
+     * otherwise use the calculated animation duration
+     */
+    function getAnimationDuration() {
+        return getComputedAnimationDuration();
+    }
+
+    /**
+     * Get the computed animation duration for an element
+     */
+    function getComputedAnimationDuration() {
+        var element = $('<div>')
+            .css('visibility', 'hidden')
+            .addClass('fancy-enter')
+            .appendTo('body');
+
+        var time = 0;
+        setTimeout(function() {
+            time += (parseFloat(getComputedStyle(element[0]).animationDuration));
+            time += (parseFloat(getComputedStyle(element[0], ':after')));//.animationDuration));
+            time += (parseFloat(getComputedStyle(element[0], ':before').animationDuration));
+
+            element.remove();
+        },0);
+    }
+
     window.fancyClick = {
-        init: init,
-        getOption: getOption
+        init: init
     };
 
 

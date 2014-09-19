@@ -75,9 +75,3 @@ Specify selectors that are only allowed to trigger fancyClick.
 
 ###preFetch###
 Prefetch links before clicking. defaults to false.
-
-###preFetchMode###
-| Option | Description |
-| -------------- | ---------- | 
-| hover | Starts prefetching a link when hovering over a link |
-| mousedown | Starts prefetching a link on the mouse down event |
