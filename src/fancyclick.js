@@ -79,7 +79,8 @@
 
     function loadPage(e, changeBack) {
         e.preventDefault();
-        var duration = getAnimationDuration();
+        var durationFn = getComputedAnimationDuration();
+        var duration = durationFn() || settings.duration;
         var href = e.currentTarget.href || window.location.href;
         var element = $(settings.container);
         var parentElement = element.parent();
@@ -94,7 +95,6 @@
             if (responseText) {
                 var dom = $('<div>').append($.parseHTML(responseText));
                 updateTitle(dom.find('title').text());
-
                 if (settings.method === 'replace') {
                     var html = dom.find(settings.container).html();
                     element.html(html);
@@ -136,18 +136,6 @@
     }
 
     /**
-     * animation duration defaults to 1000
-     * if data-animation-duration is set
-     * or default animation duration is set to a custom value
-     *
-     * use the animation duration that was received
-     * otherwise use the calculated animation duration
-     */
-    function getAnimationDuration() {
-        return getComputedAnimationDuration();
-    }
-
-    /**
      * Get the computed animation duration for an element
      */
     function getComputedAnimationDuration() {
@@ -164,6 +152,10 @@
 
             element.remove();
         },0);
+
+        return function() {
+            return time;
+        };
     }
 
     window.fancyClick = {
