@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/morsdyce/fancyClick.svg?branch=master)](https://travis-ci.org/morsdyce/fancyClick)
 
-## FancyClick (WIP) ##
+# FancyClick (WIP) #
 
 FancyClick is a lightweight pjax library focusing on animation transitions.
 
@@ -63,4 +63,4 @@ Specify selectors which shouldn't trigger FancyClick.
 Specify selectors that are only allowed to trigger fancyClick.
 
 ###preFetch###
-Prefetch links before clicking. defaults to false.
+Prefetch links before clicking, defaults to false.
