@@ -4,7 +4,7 @@
 
     var settings = {
         container: '.main',
-        method: 'replace',
+        animationMethod: 'replace',
         duration: 1000,
         preload: false,
         anchors: 'a',
@@ -95,7 +95,7 @@
             if (responseText) {
                 var dom = $('<div>').append($.parseHTML(responseText));
                 updateTitle(dom.find('title').text());
-                if (settings.method === 'replace') {
+                if (settings.animationMethod === 'replace') {
                     var html = dom.find(settings.container).html();
                     element.html(html);
                     setTimeout(function () {
@@ -104,8 +104,8 @@
 
                 } else {
                     element.addClass('fancy-leave');
-                    var afterElement = dom.find(settings.container);
-                    parentElement.append(afterElement).addClass('fancy-enter');
+                    var afterElement = dom.find(settings.container).addClass('fancy-enter');
+                    parentElement.append(afterElement);
                     setTimeout(function () {
                         element.remove();
                         afterElement.removeClass('fancy-enter');

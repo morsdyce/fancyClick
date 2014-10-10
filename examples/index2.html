@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <style>
+        .fancy-enter,
+        .fancy-leave {
+            position: absolute;
+        }
+
+        .fancy-leave {
+            -webkit-animation: fadeOutLeft 1s;
+        }
+
+        .fancy-enter {
+            -webkit-animation: fadeInRight 1s;
+        }
+    </style>
+</head>
+<body>
+    <a href="page.html">Page click</a>
+    <a href="page2.html">Page click</a>
+    <a href="http://google.com">External click</a>
+
+    <div id="main" class="main animate">
+        Main page
+    </div>
+
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../src/fancyclick.js"></script>
+    <script>
+        (function() {
+            "use strict";
+
+            fancyClick.init({
+                animationMethod: 'transition'
+            });
+
+        }());
+    </script>
+</body>
+</html>
