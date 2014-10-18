@@ -83,7 +83,6 @@
         var duration = durationFn() || settings.duration;
         var href = e.currentTarget.href || window.location.href;
         var element = $(settings.container);
-        var parentElement = element.parent();
 
         // fire loading start callback
         settings.onLoadStart();
@@ -105,7 +104,7 @@
                 } else {
                     element.addClass('fancy-leave');
                     var afterElement = dom.find(settings.container).addClass('fancy-enter');
-                    parentElement.append(afterElement);
+                    element.after(afterElement);
                     setTimeout(function () {
                         element.remove();
                         afterElement.removeClass('fancy-enter');
